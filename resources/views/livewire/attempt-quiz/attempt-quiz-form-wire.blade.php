@@ -10,7 +10,6 @@
     
 
          {{-- @if (isset($id_question))
-
          <input wire:model="id_question" type="text" id="id_question" name="id_question" class="form-control" >
              
          @endif --}}
@@ -69,10 +68,8 @@
                             <div class="demo-radio-button">
                                 <input name="group1" type="radio" id="radio_1" wire:model="file_type" value="normalfile" />
                                 <label for="radio_1">Normal File</label>
-
                                 <input name="group1" type="radio" id="radio_2" wire:model="file_type" value="3dfile"/>
                                 <label for="radio_2">3D File</label>
-
                                 <input name="group1" type="radio" id="radio_3" wire:model="file_type" value="360file"/>
                                 <label for="radio_3">360° Video</label>
                             </div>
@@ -125,5 +122,3 @@
     </div>
     {{-- END SECTION - COURSE FILE FORM  --}}
 </div>
-
- 

@@ -25,6 +25,7 @@ class QuestionsWire extends Component
 
     protected $listeners = [
         'refreshParent' => '$refresh',
+        // 'popQuiz' => 'popupQuiz',
         'delete'
     ];
 
@@ -116,6 +117,12 @@ class QuestionsWire extends Component
             $this->emit('getModelId' , $this->id_question);
         }  
     }
+
+    // public function popupQuiz()
+    // {
+    //     dd('kucing');
+    //     $question = Question::all();
+    // }
 
     public function delete()
     {  

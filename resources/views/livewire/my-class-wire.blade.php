@@ -1,7 +1,9 @@
 <div>
     {{-- START SECTION - MY CLASS --}}
+    {{-- @livewire(['id_createquizzes' => $CreateQuiz->id]) --}}
     @if (auth()->user()->currentClass)
-
+    {{-- {{dd($leaderboards)}} --}}
+  
         <div class="row el-element-overlay">
             <div class="col-md-12 text-center">
                 <h1 class="card-title">{{auth()->user()->currentClass ? auth()->user()->currentClass->name : 'Not In Any Class'}}</h1>
@@ -14,9 +16,14 @@
                     <div class="card zoom2" style="box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;border-radius: 5px;">
                         <div class="el-card-item">
                     
-                                <div class="el-card-avatar el-overlay-1"> 
-                                    <img src="https://ui-avatars.com/api/?size=512&name={{$classcourse->course ? $classcourse->course->name : 'Undefined'}}&color={{mt_rand( 0, 0xFFFFF )}}" alt="user" style="cursor: pointer;"/>
-                                    
+                                {{-- <div class="el-card-avatar el-overlay-1"> 
+                                    <img src="https://ui-avatars.com/api/?size=512&name={{$classcourse->course ? $classcourse->course->name : 'Undefined'}}&color={{mt_rand( 0, 0xFFFFF )}}" alt="user" style="cursor: pointer;"/> 
+                                </div> --}}
+
+                                <div class="el-card-avatar el-overlay-1">           
+                                    {{-- <img src="{{''.$classcourse->course->thumbnail_path.''}}" alt="Image Preview" style="width:480px;height:200px;">  --}}
+                                    {{-- <img src="{{ URL::to('/assets/images/Course2.jpg') }}" alt="user" style="cursor: pointer;"/> --}}
+                                    <img src="{{ URL::to(''.$classcourse->course->thumbnail_path.'') }}" alt="Image Preview" style="width:480px;height:200px;"> 
                                 </div>
                         
                             <div class="el-card-content" style="cursor: pointer;">
@@ -82,6 +89,7 @@
                                         
                                             {{-- @foreach ($course->createquiz as $createquiz) --}}
                                             @foreach($course->createquiz->sortByDesc('created_at') as $createquiz)
+                                            {{-- {{dd($createquiz->id)}} --}}
                                             <tbody>
                                                 <tr>
                                                     <td>{{$createquiz->name}}</td>
@@ -94,7 +102,39 @@
                                                         {{-- @else --}}
                                                             {{-- <a href="{{URL::to(''.$createquiz->file_path.'')}}" target="_blank" class="btn btn-success">Attempt Quiz</a>  --}}
                                                             {{-- {{dd($createquiz->id)}} --}}
+                                                            {{-- <canvas id="script.js" width="400" height="100"></canvas> --}}
+                                                            {{-- <p id="countdown">10:00</p> --}}
+
+                                                            
+                                                            @php
+                                                                $isAnswered = false;
+                                                            @endphp
+                                                            @foreach($leaderboards as $leaderboard)
+                                                            @if ($leaderboard->id_createquizzes != $createquiz->id)
+                                                            @php
+                                                                $isAnswered = true;
+                                                            @endphp
+                                                            @else
+                                                            @php
+                                                                $isAnswered = false;
+                                                            @endphp
+                                                            @break
+                                                            {{-- <button wire:click="attemptQuiz({{$createquiz->id}})" class="btn btn-success" >Attempt Quiz</button> --}}
+                                                            @endif
+                                                            @endforeach
+                                                            @if ($isAnswered)
                                                             <button wire:click="attemptQuiz({{$createquiz->id}})" class="btn btn-success" >Attempt Quiz</button>
+                                                            @else
+                                                            @endif
+                                                            {{-- @foreach($leaderboards->id_createquizzes as $createquiz)
+                                                            @endforeach
+                                                            @if ($leaderboards[3]->id_createquizzes != $createquiz->id)
+                                                            <button wire:click="attemptQuiz({{$createquiz->id}})" class="btn btn-success" >Attempt Quiz</button>
+                                                            @else
+                                                                
+                                                            @endif --}}
+                                                            {{-- <button wire:click="attemptQuiz({{$createquiz->id}})" class="btn btn-success" >Attempt Quiz</button> --}}
+                                                            <button wire:click="seeResult({{$createquiz->id}})" class="btn btn-success" style="float:right" >See My Result</button>
                                                             
                                                         {{-- @endif --}}
                                                         {{-- <p id="countdown">{{$createquiz->hour}}:{{$createquiz->minute}}</p> --}}
@@ -146,7 +186,23 @@
                 $('#showCourseContentModal').modal('show')
             })
     
-      })
+        // const startingMinutes = 10;
+        // let time = startingMinutes = 60;
+
+        // const countdownEl = document.getElementById('countdown');
+
+        // setInterval(updateCountdown, 1000);
+
+        // function updateCountdown() {
+        //     const minutes = Math.floor(time/60);
+        //     let seconds = time % 60;
+
+        //     seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        //     countdownEl.innerHTML = '$(minutes):$(seconds)';
+        //     time--;
+        // }
+    })
     </script>
     
     @endpush

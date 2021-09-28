@@ -1,7 +1,7 @@
 <div>
     <div class="card">
       <div class="card-header text-center font-weight-bold">
-        <h2>Leaderboards</h2>
+        <h2>Leaderboards For Quiz</h2>
       </div>
       <form wire:submit.prevent="search">
           

@@ -32,7 +32,7 @@ class LeaderboardWire extends Component
     public function render()
     {
         // $resourcesfiles = IpfsResources::where('resources_name' , 'like' , '%'.$this->name.'%')->orderBy('created_at','desc')->get();
-        $leaderboards = Leaderboard::where('quiz_name' , 'like' , '%'.$this->quiz_name.'%')->orderBy('total_marks','desc')->get();
+        $leaderboards = Leaderboard::where('quiz_name' , 'like' , '%'.$this->quiz_name.'%')->orderBy('total_marks','desc')->orderBy('hour','asc')->orderBy('minute','asc')->orderBy('second','asc')->get();
         return view('livewire.leaderboard.leaderboard-wire')->with(compact('leaderboards'));
         // return view('livewire.attempt-quiz.attempt-quiz-wire')->with(compact('attemptquizzes'));
     }

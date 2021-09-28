@@ -35,7 +35,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label" style="font-weight:500">Duration:</label>
-                                {{$leaderboard->hour}} hours {{$leaderboard->minute}} minutes
+                                {{$leaderboard->hour}} hours {{$leaderboard->minute}} minutes {{$leaderboard->second}} seconds
                                 {{-- <input wire:model="duration" type="text" id="duration" name="duration" class="form-control" >
                                 @error('duration') <span class="error" style="color:red"><b>{{ $message }}</b></span> @enderror --}}
                             </div>

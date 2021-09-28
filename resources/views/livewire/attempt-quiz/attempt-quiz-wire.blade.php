@@ -1,11 +1,23 @@
 <div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <br><br>
+    {{-- <span class='btn'>Click to play some music!</span> --}}
+    <button class='btn' style="float:right" >Click to play some music!</button>
+    <h2 id="countdown"></h2>
     {{-- START SECTION - COURSE FILE FORM  --}}
     {{-- {{dd($CreateQuiz->questions)}} --}}
     @livewire('attempt-quiz.attempt-quiz-form-wire', ['id_createquizzes' => $CreateQuiz->id])
     {{-- @livewire('questions.questions-form-wire', ['id_createquizzes' => $CreateQuiz->id]) --}}
     {{-- END SECTION - COURSE FILE FORM  --}}
-
+    {{-- <audio controls>
+        <source src="horse.ogg" type="audio/ogg">
+        <source src="horse.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio> --}}
     {{-- START SECTION - DATATABLE COURSE FILE  --}}
+    {{-- <canvas id="script.js" width="400" height="100"></canvas> --}}
+    {{-- <h2 id="countdown"></h2> --}}
+    
     <div class="row">
         <div class="col-md-12">
             <div class="card" style="box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;border-radius: 5px;">
@@ -73,7 +85,12 @@
                     </table>
                     <td style="border:none">
                         {{-- <button type="button" href="/myclass" style="width:160px; height:30px;"><i  style="font-size:14px;">Finish Attempt Quiz</i></button> --}}
-                        <a href="/result" wire:click="finishAttempt({{$question->id}} , 'finish' )" class="btn btn-success data-delete">Finish Attempt Quiz</a>
+                        <a href="#" id="btn_finish_attempt" data-qid='{{$question->id}}' data-hour='' data-min='' data-sec='' class="btn btn-success">Finish Attempt Quiz</a>
+                        <a style="color:blue; font-weight:bolder">
+                            @if (session()->has('message'))
+                                {{ session('message') }}
+                            @endif
+                        </a>
                         <button wire:click="seeResult({{$CreateQuiz->id}})" class="btn btn-success" style="float:right" >See My Result</button>
                         {{-- <td style="border:none">
                             <button type="button" wire:click="selectItem({{$createquiz->id}} , 'delete' )" class="btn btn-sm waves-effect waves-light btn-danger data-delete" data-form="{{$createquiz->id}}"><i class="fas fa-trash-alt"></i></button>
@@ -95,9 +112,22 @@
 <script>
     
   document.addEventListener('livewire:load', function () {
+    
+    var audioUrl = '{{ URL::to("/assets/images/Instrumental - Return Unto Thy Rest.mp3") }}';
+    // SIMPLE EXEMPLE
+    $('.btn').click( () => new Audio(audioUrl).play() ); // that will do the trick !!
 
+    $('#btn_finish_attempt').on('click' , function(){
+        var qid = $(this).data('qid');
+        var hourFin = $(this).data('hour');
+        var minFin = $(this).data('min');
+        var secFin = $(this).data('sec');
+    // console.log(qid , hourFin, minFin , secFin);
+    Livewire.emit('postTime' , qid , hourFin, minFin , secFin);
 
-    $(document).on("click", ".data-delete", function (e) 
+    }); 
+
+        $(document).on("click", ".data-delete", function (e) 
         {
             e.preventDefault();
             swal({
@@ -111,6 +141,105 @@
             });
         });
 
+        // var startingMinutes = 10;
+        // var time = startingMinutes = 60;
+
+        // var countdownEl = document.getElementById('countdown');
+
+        // setInterval(updateCountdown, 1000);
+
+        // function updateCountdown() {
+        //     var minutes = Math.floor(time/60);
+        //     var seconds = time % 60;
+
+        //     seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        //     countdownEl.innerHTML = ''+minutes+':'+seconds+'';
+        //     time--;
+
+        //     console.log(minutes, seconds);
+        // }
+
+
+        function startTimer(duration, durationSet, display) {     
+
+            var timer = duration, hours , minutes, seconds;
+            var timer2 = durationSet, hoursSet , minutesSet, secondsSet;
+            
+            setInterval(function () {
+                hours = parseInt((timer /3600)%24, 10)
+                minutes = parseInt((timer / 60)%60, 10)
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = hours + ":"  + minutes + ":" + seconds;
+                // console.log("Timeout")
+                // console.log(timer)
+                if (--timer < 0) {
+                    timer = duration;
+                    // console.log("duration")
+                }
+                // console.log(timer2)
+                timer3 = timer2-timer;
+                console.log(timer3)
+                hoursSet = parseInt((timer3 /3600)%24, 10)
+                minutesSet = parseInt((timer3 / 60)%60, 10)
+                secondsSet = parseInt(timer3 % 60, 10);
+
+                // hoursSet = hoursSet < 10 ? "0" + hoursSet : hoursSet;
+                // minutesSet = minutesSet < 10 ? "0" + minutesSet : minutesSet;
+                // secondsSet = secondsSet < 10 ? "0" + secondsSet : secondsSet;
+
+                // display.textContent = hoursSet + ":"  + minutesSet + ":" + secondsSet;
+
+                // if (--timer2 < 0) {
+                //     timer2 = durationSet;
+                // }
+
+              
+                $('#btn_finish_attempt').attr('data-hour',hoursSet);
+                $('#btn_finish_attempt').attr('data-min',minutesSet);
+                $('#btn_finish_attempt').attr('data-sec',secondsSet);
+
+                if(hours === '00'  && minutes === '00' && seconds === '00'){
+                        // console.log("Timeout")
+                        //Logic pegi page lain tuu kalau mase habis
+                        // <button wire:click="seeResult({{$CreateQuiz->id}})" class="btn btn-success" style="float:right" >See My Result</button>
+                        // window.location.replace("http://www.w3schools.com");
+                        // window.location.replace("seeResult({{$CreateQuiz->id}})");
+                        // window.location.replace("http://gsda2.test/seeResult/{{$CreateQuiz->id}}");
+                        window.location.replace("http://gsda2.test/seeResult/{{$CreateQuiz->id}}");    
+                }
+            }, 1000);
+        }
+
+        //Pass data yang lecturer key in kat sini
+        // console.log('{{$CreateQuiz->hour}}' , '{{$CreateQuiz->minute}}');
+        var durationQuizHour = 60 * 60 * '{{$CreateQuiz->hour}}';
+        var durationQuizMin =  60 * '{{$CreateQuiz->minute}}';
+        var durationQuizSec =  00;
+
+        var durationQuizHourSet = 60 * 60 * '{{$CreateQuiz->hour}}';
+        var durationQuizMinSet =  60 * '{{$CreateQuiz->minute}}';
+        var durationQuizSecSet =  00;
+        // var durationQuizHour = 60 * 60 * 00;
+        // var durationQuizMin =  60 * 00;
+        // var durationQuizSec =  15;
+        var display = document.querySelector('#countdown');
+        startTimer(durationQuizHour + durationQuizMin + durationQuizSec, durationQuizHourSet + durationQuizMinSet + durationQuizSecSet, display);
+                                       
+        //  $durationHour =  durationQuizHour;
+        //  $durationMin =  durationQuizMin;
+        //  $durationSec =  durationQuizSec;
+
+        // dd($durationHour);
+        // Livewire.emit('postTime',  $durationHour, $durationMin, $durationSec);
+        // console.log("Timeout")
+        // $this->emit('finishAttempt', $post->id);
+        // $this->emit('postAdded', $post->id);
   })
 </script>
 {{-- END SECTION - SCRIPT FOR DELETE BUTTON  --}}

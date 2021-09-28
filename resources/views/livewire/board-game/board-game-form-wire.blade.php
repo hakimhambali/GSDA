@@ -1,0 +1,1 @@
+<iframe src="http://gsda2.test/board_game" height="760" width="1440"></iframe

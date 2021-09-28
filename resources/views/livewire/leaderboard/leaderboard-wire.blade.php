@@ -15,7 +15,7 @@
                                 <th class="text-center">Student Name</th>
                                 {{-- <th >Quiz Name</th> --}}
                                 <th class="text-center">Marks</th>
-                                <th class="text-center">Duration</th>
+                                <th class="text-center">Time Taken</th>
                                 {{-- <th>Attempt At</th> --}}
                                 {{-- <th>Updated At</th> --}}
                                 <th class="text-center"></th>
@@ -43,7 +43,8 @@
                                     </td> --}}
                                     {{-- <td>{{$leaderboard->quiz_name}}</td> --}}
                                     <td class="text-center">{{$leaderboard->total_marks}}</td>
-                                    <td class="text-center">{{$leaderboard->hour}} hours {{$leaderboard->minute}} minutes</td>
+                                    <td class="text-center">{{$leaderboard->hour}} hours {{$leaderboard->minute}} minutes {{$leaderboard->second}} seconds</td>
+                                    {{-- $minute=$createQuiz->minute; --}}
                                     {{-- {{$createquiz->hour}} hours {{$createquiz->minute}} minutes --}}
                                     {{-- <td>{{$leaderboard->minute}}</td> --}}
                                     {{-- <td>{{date('j F Y', strtotime($leaderboard->created_at))}}</td> --}}

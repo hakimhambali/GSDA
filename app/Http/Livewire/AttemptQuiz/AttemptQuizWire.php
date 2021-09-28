@@ -24,13 +24,21 @@ class AttemptQuizWire extends Component
     public $totalMark;
     public $hour;
     public $minute;
+    // public $hours;
+    // public $minutes;
     public $name;
+    public $durationQuizMin;
+    public $durationQuizHour;
+    // public $postTime;
 
 
     protected $listeners = [
+        'postTime' => 'finishAttempt',
         'refreshParent' => '$refresh',
         'delete'
     ];
+
+    
 
     public function mount($id)
     { 
@@ -70,8 +78,9 @@ class AttemptQuizWire extends Component
         return redirect()->to('seeResult/'.$id_questions.'');
     }
 
-    public function finishAttempt($modelid , $action)
+    public function finishAttempt($modelid , $hour , $minute, $sec)
     {
+    //    dd($modelid , $hour , $minute, $sec);
         $this->id_question = $modelid;
         // dd($this->id_question);
         // $totalMark = Attemptquiz::where('status_answer', '=' , '1' , 'id_users' , '=' , auth()->user()->id)->count();
@@ -80,8 +89,9 @@ class AttemptQuizWire extends Component
         $createQuiz = CreateQuiz::where('id' , '=' , $this->CreateQuiz->id)->first();
         $quiz_id=$createQuiz->id;
         $quizName=$createQuiz->name;
-        $hour=$createQuiz->hour;
-        $minute=$createQuiz->minute;
+       
+        // $hour=$createQuiz->hour;
+        // $minute=$createQuiz->minute;
         $totalMark = Attemptquiz::where([['status_answer', '=', '1'] ,[ 'id_users', '=', auth()->user()->id] ,[ 'id_createquizzes', '=', $quiz_id]])->count();
         // dd($totalMark);
         // dd($quiz_id);
@@ -97,10 +107,20 @@ class AttemptQuizWire extends Component
         $leaderboard->total_marks = $totalMark;
         $leaderboard->hour = $hour;
         $leaderboard->minute = $minute;
+        $leaderboard->second = $sec;
+        // $leaderboard->hour = $durationQuizHour;
+        // $leaderboard->minute = $durationQuizMin;
+        // $leaderboard->minute = $seconds;
         $leaderboard->save();
         // $status = Answer::where('id' , '=' , $this->answer)->first();
+        session()->flash('message', 'You have successfully finish attempting the quiz');
     }
    
+    public function editTime($durationHour1, $durationMin1, $durationSec1)
+    {
+        // dd($durationHour1);
+        
+    }
 
     public function render()
     {

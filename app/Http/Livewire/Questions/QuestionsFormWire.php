@@ -35,6 +35,7 @@ class QuestionsFormWire extends Component
     }
 
     protected $listeners = [
+        // 'drawMoves' => 'popupQuiz',
         'getModelId'
     ];
 
@@ -121,6 +122,11 @@ class QuestionsFormWire extends Component
 
     }
 
+    // public function popupQuiz()
+    // {
+    //     dd('kucing');
+    //     $question = Question::all();
+    // }
     
     public function render()
     {

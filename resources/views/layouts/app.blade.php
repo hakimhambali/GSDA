@@ -186,7 +186,7 @@
                                         
                                     
                                             {{-- <li><a href="{{URL::to('coursefile')}}">Add Quizzes to Topic</a></li> --}}
-                                            <li><a href="{{URL::to('createquiz')}}">Add Quizzes to Topic</a></li>
+                                            {{-- <li><a href="{{URL::to('createquiz')}}">Add Quizzes to Topic</a></li> --}}
                                         
                                         </ul>
                                     </li> 
@@ -257,10 +257,18 @@
 
                                     <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-crown"></i><span class="hide-menu">Leaderboards</span></a>
                                         <ul aria-expanded="false" class="collapse">
-                                            <li><a href="{{URL::to('leaderboard')}}">View Leaderboards</a></li>
+                                            <li><a href="{{URL::to('leaderboard')}}">View Leaderboards Quiz</a></li>
+                                            <li><a href="{{URL::to('leaderboardGame')}}">View Leaderboards Game</a></li>
                                         </ul>
                                     </li>
                                     
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{ url('img/strategy.png') }}" alt="boardgame" class="dark-logo" style="width:11%;height:30%;display: inline;" /></i><span class="hide-menu">     Board Game</span></a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="{{URL::to('boardgame')}}">Board Game Challenge</a></li>
+                                            <li><a href="{{URL::to('questiongame')}}">Question Game Challenge</a></li>
+                                            {{-- <li><a href="{{URL::to('mazegame')}}">Board Game Challenge2</a></li> --}}
+                                        </ul>
+                                    </li>
 
                                 @endif
                                 {{-------- END SECTION - LECTURER --------}}
@@ -274,6 +282,22 @@
                                     <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-crown"></i><span class="hide-menu">Leaderboards</span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="{{URL::to('leaderboard')}}">View Leaderboards</a></li>
+                                            <li><a href="{{URL::to('leaderboardGame')}}">View Leaderboards Game</a></li>
+                                        </ul>
+                                    </li>
+
+                                    {{-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-crown"></i><span class="hide-menu">Leaderboards</span></a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="{{URL::to('leaderboard')}}">View Leaderboards Quiz</a></li>
+                                            <li><a href="{{URL::to('leaderboardGame')}}">View Leaderboards Game</a></li>
+                                        </ul>
+                                    </li> --}}
+
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{ url('img/strategy.png') }}" alt="boardgame" class="dark-logo" style="width:11%;height:30%;display: inline;" /></i><span class="hide-menu">     Board Game</span></a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            {{-- <li><a href="{{URL::to('board_game')}}">Board Game Challenge</a></li> --}}
+                                            <li><a href="{{URL::to('boardgame')}}">Board Game Challenge</a></li>
+                                            {{-- <li><a href="{{URL::to('mazegame')}}">Board Game Challenge2</a></li> --}}
                                         </ul>
                                     </li>
                                 @endif

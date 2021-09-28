@@ -18,7 +18,7 @@ class Question extends Model
     }
 
     public function attemptquiz() {
-        return $this->hasOne('App\Models\AttemptQuiz', 'id_question', 'id');
+        return $this->hasMany('App\Models\AttemptQuiz', 'id_question', 'id');
     }
 
     // protected $fillable = ['question_text', 'answer_explanation', 'course_id'];

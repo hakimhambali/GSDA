@@ -42,7 +42,24 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-md-4" id="thumbnailupload">
+                        <div class="form-group">
+                            <label class="control-label" style="font-weight:500">Thumbnail Upload</label>
+                            <div
+                                x-data="{ isUploading: false, progress: 0 }"
+                                x-on:livewire-upload-start="isUploading = true"
+                                x-on:livewire-upload-finish="isUploading = false"
+                                x-on:livewire-upload-error="isUploading = false"
+                                x-on:livewire-upload-progress="progress = $event.detail.progress">
+                            <div wire:loading wire:target="thumbnail_path"><i class="mdi mdi-loading mdi-spin mdi-24px"></i></div>
+                                <input type="file" wire:model="thumbnail_path" id="thumbnail_path" name="thumbnail_path" class="dropify" />
+                                @error('thumbnail_path') <span class="error" style="color:red"><b>{{ $message }}</b></span> @enderror
+                                <div x-show="isUploading">
+                                    <progress max="100" x-bind:value="progress"></progress>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                 </div>
     

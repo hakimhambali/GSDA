@@ -6,17 +6,21 @@ use App\Http\Livewire\User\UserWire;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Course\CourseWire;
 
+use App\Http\Livewire\Result\ResultWire;
+use App\Http\Livewire\Answers\AnswersWire;
+use App\Http\Livewire\MazeGame\MazeGameWire;
+
+use App\Http\Livewire\BoardGame\BoardGameWire;
 use App\Http\Livewire\ClassRoom\ClassRoomWire;
-use App\Http\Livewire\CourseFile\CourseFileWire;
-use App\Http\Livewire\ClassCourse\ClassCourseWire;
 
 use App\Http\Livewire\Questions\QuestionsWire;
-use App\Http\Livewire\Answers\AnswersWire;
-
+use App\Http\Livewire\CourseFile\CourseFileWire;
 use App\Http\Livewire\CreateQuiz\CreateQuizWire;
 use App\Http\Livewire\AttemptQuiz\AttemptQuizWire;
-use App\Http\Livewire\Result\ResultWire;
+use App\Http\Livewire\ClassCourse\ClassCourseWire;
 use App\Http\Livewire\Leaderboard\LeaderboardWire;
+use App\Http\Livewire\QuestionGame\QuestionGameWire;
+use App\Http\Livewire\LeaderboardGame\LeaderboardGameWire;
 
 
 /*
@@ -54,6 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/createquiz',	CreateQuizWire::class);
     // Route::get('/result',	ResultWire::class);
     Route::get('/leaderboard',	LeaderboardWire::class);
+    Route::get('/boardgame',	BoardGameWire::class);
+    Route::get('/leaderboardGame',	LeaderboardGameWire::class);
+    Route::get('/questiongame',	QuestionGameWire::class);
+    // Route::get('/boardgame',	BoardGameWire::class);
     // Route::get('/createquiz123', [CreateQuizWire::class, 'index'] );
     // Route::get('/createquiz1234', [CreateQuizWire::class, 'create'] );
     // Route::get('/indexquiz',	CreateQuizWire::class);
@@ -71,6 +79,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/addAnswer/{id}', AnswersWire::class);
     Route::get('/attemptQuiz/{id}', AttemptQuizWire::class);
     Route::get('/seeResult/{id}',	ResultWire::class);
+    // Route::get('/mazegame', 'App\Http\Controllers\MazeGame@index');
+    Route::get('/mazegame', MazeGameWire::class);
 
     // Route::get('/attemptquiz',	AttemptQuizWire::class);
 
@@ -89,35 +99,47 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::middleware('auth')->group(function () {
 
-    Route::get('/minecraft', function() {
-        return view('minecraft_demo.index');
-    })->name('minecraft_demo');
+    // Route::get('/minecraft', function() {
+    //     return view('minecraft_demo.index');
+    // })->name('minecraft_demo');
 
-    Route::get('/video_360/{videoId}', function($videoId) {
-        $video = App\Models\CourseFile::find($videoId);
+    // Route::get('/video_360/{videoId}', function($videoId) {
+    //     $video = App\Models\CourseFile::find($videoId);
 
-        return view('video_360.index', [
-            'videoSrc' => $video 
-        ]);
-    })->name('video_360');
+    //     return view('video_360.index', [
+    //         'videoSrc' => $video 
+    //     ]);
+    // })->name('video_360');
 
-    Route::get('/3d_model_view/{modelId}', function($modelId) {
-        $model = App\Models\CourseFile::find($modelId);
+    // Route::get('/3d_model_view/{modelId}', function($modelId) {
+    //     $model = App\Models\CourseFile::find($modelId);
 
-        return view('3d_model_view.index', [
-            'modelSrc' => $model 
-        ]);
+    //     return view('3d_model_view.index', [
+    //         'modelSrc' => $model 
+    //     ]);
 
-    })->name('3d_model_view');
+    // })->name('3d_model_view');
 
-    Route::get('/ar_view/{modelId}', function($modelId) {
-        $model = App\Models\CourseFile::find($modelId);
+    // Route::get('/ar_view/{modelId}', function($modelId) {
+    //     $model = App\Models\CourseFile::find($modelId);
 
-        return view('ar_view.index', [
-            'modelSrc' => $model 
-        ]);
+    //     return view('ar_view.index', [
+    //         'modelSrc' => $model 
+    //     ]);
 
-    })->name('ar_view');
+    // })->name('ar_view');
+
+    Route::get('/board_game', function() {
+        return view('board_game.index');
+    })->name('board_game');
+
+    Route::get('/maze_game', function() {
+        return view('maze_game.index');
+    })->name('maze_game');
+
+    // Route::get('/3d_model_view', function() {
+    //     return view('3d_model_view.index');
+    // })->name('3d_model_view');
 
     Route::get('/changeclassto/{classId}', function($classId) {
         $class = App\Models\Team::find($classId);
