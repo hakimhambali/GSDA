@@ -34,6 +34,7 @@ class CourseFormWire extends Component
 
     public function store()
     {
+        dd($this->thumbnail_path);
         if ($this->thumbnail_path) {
             // Get thumbnailname with the extension
             $filenameWithExt = $this->thumbnail_path->getClientOriginalName();
