@@ -54,29 +54,29 @@
 
 {{-- START SECTION - SCRIPT FOR DELETE BUTTON  --}}
 <script>
-  document.addEventListener('livewire:load', function () {
-
-
-    $(document).on("click", ".data-delete", function (e) 
-        {
-            e.preventDefault();
-            swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-            })
-            .then((willDelete) => {
-            if (willDelete) {
-                e.preventDefault();
-                Livewire.emit('delete')
-            } 
-            });
-        });
-
-  })
-</script>
+    document.addEventListener('livewire:load', function () {
+  
+  
+      $(document).on("click", ".data-delete", function (e) 
+          {
+              e.preventDefault();
+              swal({
+              title: "Are you sure?",
+              text: "Once deleted, you will not be able to recover!",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+              })
+              .then((willDelete) => {
+              if (willDelete) {
+                  e.preventDefault();
+                  Livewire.emit('delete')
+              } 
+              });
+          });
+  
+    })
+  </script>
 {{-- END SECTION - SCRIPT FOR DELETE BUTTON  --}}
 
 @endpush
